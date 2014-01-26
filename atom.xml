@@ -1,101 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Sherzod O.</title>
-  <meta name="author" content="Sherzod Odinaev">
-
-  
-  <meta name="description" content="This setup combines Cacti with Percona monitoring plugins. If you prefer install cacti using package installer, be sure to checkout this UnixCraft &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://blog.sherzod.com/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Sherzod O." type="application/atom+xml">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Sherzod O.</a></h1>
-  
-    <h2>dev <i class="fa fa-star"></i> db <i class="fa fa-star"></i> ops</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:blog.sherzod.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Sherzod O.]]></title>
+  <link href="http://blog.sherzod.com/atom.xml" rel="self"/>
+  <link href="http://blog.sherzod.com/"/>
+  <updated>2014-01-26T16:53:00-05:00</updated>
+  <id>http://blog.sherzod.com/</id>
+  <author>
+    <name><![CDATA[Sherzod Odinaev]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/28/setup-cacti-to-monitor-mysql/">Setup Cacti on CentOS 6 to Monitor MySQL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-12-28T14:16:48-05:00" pubdate data-updated="true">Dec 28<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">UnixCraft article</a>.</p>
+  <entry>
+    <title type="html"><![CDATA[Setup cacti on CentOS 6 to monitor MySQL]]></title>
+    <link href="http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql/"/>
+    <updated>2013-12-28T14:16:48-05:00</updated>
+    <id>http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql</id>
+    <content type="html"><![CDATA[<p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">UnixCraft article</a>.</p>
 
 <h2>Test</h2>
 
@@ -233,77 +156,7 @@
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/12/28/setup-cacti-to-monitor-mysql/">Setup cacti on CentOS 6 to monitor MySQL</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Sherzod Odinaev -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mysql | Sherzod O.]]></title>
+  <link href="http://blog.sherzod.com/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://blog.sherzod.com/"/>
+  <updated>2014-01-26T16:53:00-05:00</updated>
+  <id>http://blog.sherzod.com/</id>
+  <author>
+    <name><![CDATA[Sherzod Odinaev]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setup cacti on CentOS 6 to monitor MySQL]]></title>
+    <link href="http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql/"/>
+    <updated>2013-12-28T14:16:48-05:00</updated>
+    <id>http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql</id>
+    <content type="html"><![CDATA[<p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">UnixCraft article</a>.</p>
+
+<h2>Test</h2>
+
+<p>I recommend testing the setup on virtual machine first. That way you can ensure all is working before deploying into production. I suggest using <a href="http://www.vagrantup.com">Vagrant</a> to easily spawn a VM.</p>
+
+<h2>Install required packages</h2>
+
+<p>Install <strong>MySQL</strong> first for Cacti to store its settings. I choose <a href="http://www.percona.com">Percona Server</a> for that. We start by installing <a href="http://www.percona.com/doc/percona-server/5.5/installation/yum_repo.html">yum repo</a>, then installing Percona Server 5.5 and etc.</p>
+
+<p><code>bash
+rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
+yum install -y Percona-Server*55.*
+</code></p>
+
+<p>Now install <strong>Apache, PHP, SNMP, and RRDtool</strong>
+<code>bash
+yum install -y httpd php php-mysql php-snmp php-gd net-snmp net-snmp-utils rrdtool
+</code></p>
+
+<p>Let&rsquo;s create a group <code>webdev</code> for Apache and Cacti, along with dedicated user <code>cacti</code>, and set proper premissions.
+```bash
+groupadd webdev
+adduser cacti</p>
+
+<p>usermod -G webdev cacti
+usermod -G webdev apache
+```</p>
+
+<p>I generally put things into /httpd directory. Feel free to use the default /var/www/html directory. Since I&rsquo;m using a VM, I also like to use hostnames, and use it as virtual host in Apache. Be sure to pick your timezone as well.</p>
+
+<p>```bash
+mkdir /httpd</p>
+
+<h1>Since this is inside the VM, be sure to add hostname record to your top level hosts file</h1>
+
+<p>cat &lt;&lt; EOL >> /etc/hosts
+127.0.0.1    cacti.local
+EOL</p>
+
+<p>cat &lt;&lt; EOL >> /etc/httpd/conf/httpd.conf
+NameVirtualHost *:80
+<VirtualHost *:80></p>
+
+<pre><code>DocumentRoot /httpd/cacti 
+ServerName cacti.local
+</code></pre>
+
+<p></VirtualHost>
+EOL</p>
+
+<p>cat &lt;&lt; EOL >> /etc/php.ini
+date.timezone = America/New_York
+EOL</p>
+
+<p>mv /etc/localtime /etc/localtime.bak
+ln -s /usr/share/zoneinfo/America/New_York /etc/localtime</p>
+
+<p>service httpd start
+service mysql start
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql >> /dev/null 2>&amp;1
+```</p>
+
+<p>Setup Cacti MySQL database and user. Cacti source uses cactiuser/cactiuser as username and password.</p>
+
+<p><code>bash
+mysql -e 'CREATE DATABASE cacti'
+mysql -e 'GRANT ALL ON cacti.* TO cactiuser@localhost IDENTIFIED BY "cactiuser"'
+</code></p>
+
+<h2>Download Cacti</h2>
+
+<p>```bash
+cd /httpd
+wget <a href="http://www.cacti.net/downloads/cacti-0.8.8b.tar.gz">http://www.cacti.net/downloads/cacti-0.8.8b.tar.gz</a>
+tar -xzf  cacti-0.8.8b.tar.gz  &amp;&amp; mv cacti-0.8.8b cacti</p>
+
+<p>chown -R cacti:webdev /httpd
+chmod -R 775 /httpd
+```</p>
+
+<p>At this point you should be able to verify that Cacti is working by navigating to your server/VM IP or URL. You should see installation page, just go thru it and make sure you dont see any errors.</p>
+
+<h2>Schedule poller</h2>
+
+<p>To collect monitoring data, we need to run Cacti poller via crontab. By default Cacti is setup to poll every 5 minutes. I prefer do that every 1 minute, plus I use 10 second poller interval.</p>
+
+<p><code>bash
+touch /var/spool/cron/cacti
+cat &lt;&lt; EOL &gt;&gt; /var/spool/cron/cacti
+* * * * * /usr/bin/php /httpd/cacti/poller.php &gt; /dev/null 2&gt;&amp;1
+EOL
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
