@@ -4,7 +4,7 @@
   <title><![CDATA[Sherzod O.]]></title>
   <link href="http://blog.sherzod.com/atom.xml" rel="self"/>
   <link href="http://blog.sherzod.com/"/>
-  <updated>2014-01-26T16:53:00-05:00</updated>
+  <updated>2014-01-26T18:33:38-05:00</updated>
   <id>http://blog.sherzod.com/</id>
   <author>
     <name><![CDATA[Sherzod Odinaev]]></name>
@@ -18,11 +18,11 @@
     <link href="http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql/"/>
     <updated>2013-12-28T14:16:48-05:00</updated>
     <id>http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql</id>
-    <content type="html"><![CDATA[<p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">UnixCraft article</a>.</p>
+    <content type="html"><![CDATA[<p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">nixCraft article</a>.</p>
 
 <h2>Test</h2>
 
-<p>I recommend testing the setup on virtual machine first. That way you can ensure all is working before deploying into production. I suggest using <a href="http://www.vagrantup.com">Vagrant</a> to easily spawn a VM.</p>
+<p>I recommend testing the setup on an isolated machine first. That way you can ensure all is working before deploying into production. I suggest using <a href="http://www.vagrantup.com">Vagrant</a> to easily spawn a VM for that.</p>
 
 <h2>Install required packages</h2>
 
@@ -42,7 +42,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Let&rsquo;s create a group <code>webdev</code> for Apache and Cacti, along with dedicated user <code>cacti</code>, and set proper premissions.</p>
+<p>Let&rsquo;s create a group <code>webdev</code> for Apache and Cacti, along with dedicated user <code>cacti</code>, and group them into webdev.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -57,7 +57,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I generally put things into /httpd directory. Feel free to use the default /var/www/html directory. Since I&rsquo;m using a VM, I also like to use hostnames, and use it as virtual host in Apache. Be sure to pick your timezone as well.</p>
+<p>I generally put web related things into /httpd directory. Feel free to use the default /var/www/html directory. Since I&rsquo;m using a VM, I also like to use specific hostnames, and use it as virtual host in Apache. For consistency, be sure to setup your timezone, both on system and PHP</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -84,6 +84,7 @@
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
+<span class='line-number'>26</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir /httpd
 </span><span class='line'>
 </span><span class='line'><span class="c"># Since this is inside the VM, be sure to add hostname record to your top level hosts file</span>
@@ -108,11 +109,12 @@
 </span><span class='line'>
 </span><span class='line'>service httpd start
 </span><span class='line'>service mysql start
+</span><span class='line'><span class="c"># below is not required but nice to have. Ignore warnings</span>
 </span><span class='line'>mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql &gt;&gt; /dev/null 2&gt;&amp;1
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Setup Cacti MySQL database and user. Cacti source uses cactiuser/cactiuser as username and password.</p>
+<p>Setup Cacti MySQL database and user. Cacti source uses cactiuser/cactiuser as username and password by default.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -155,7 +157,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p><em>&hellip;to be contunued with monitoring templates&hellip;</em></p>
 ]]></content>
   </entry>
   

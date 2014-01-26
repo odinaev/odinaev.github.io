@@ -4,7 +4,7 @@
   <title><![CDATA[Category: monitor | Sherzod O.]]></title>
   <link href="http://blog.sherzod.com/blog/categories/monitor/atom.xml" rel="self"/>
   <link href="http://blog.sherzod.com/"/>
-  <updated>2014-01-26T16:53:00-05:00</updated>
+  <updated>2014-01-26T18:33:38-05:00</updated>
   <id>http://blog.sherzod.com/</id>
   <author>
     <name><![CDATA[Sherzod Odinaev]]></name>
@@ -18,11 +18,11 @@
     <link href="http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql/"/>
     <updated>2013-12-28T14:16:48-05:00</updated>
     <id>http://blog.sherzod.com/blog/2013/12/28/setup-cacti-to-monitor-mysql</id>
-    <content type="html"><![CDATA[<p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">UnixCraft article</a>.</p>
+    <content type="html"><![CDATA[<p>This setup combines <a href="http://www.cacti.net/" title="Cacti">Cacti</a> with <a href="http://www.percona.com/doc/percona-monitoring-plugins/1.0/cacti/">Percona monitoring plugins</a>. If you prefer install cacti using package installer, be sure to checkout this <a href="http://www.cyberciti.biz/faq/fedora-rhel-install-cacti-monitoring-rrd-software/">nixCraft article</a>.</p>
 
 <h2>Test</h2>
 
-<p>I recommend testing the setup on virtual machine first. That way you can ensure all is working before deploying into production. I suggest using <a href="http://www.vagrantup.com">Vagrant</a> to easily spawn a VM.</p>
+<p>I recommend testing the setup on an isolated machine first. That way you can ensure all is working before deploying into production. I suggest using <a href="http://www.vagrantup.com">Vagrant</a> to easily spawn a VM for that.</p>
 
 <h2>Install required packages</h2>
 
@@ -38,7 +38,7 @@ yum install -y Percona-Server*55.*
 yum install -y httpd php php-mysql php-snmp php-gd net-snmp net-snmp-utils rrdtool
 </code></p>
 
-<p>Let&rsquo;s create a group <code>webdev</code> for Apache and Cacti, along with dedicated user <code>cacti</code>, and set proper premissions.
+<p>Let&rsquo;s create a group <code>webdev</code> for Apache and Cacti, along with dedicated user <code>cacti</code>, and group them into webdev.
 ```bash
 groupadd webdev
 adduser cacti</p>
@@ -47,7 +47,7 @@ adduser cacti</p>
 usermod -G webdev apache
 ```</p>
 
-<p>I generally put things into /httpd directory. Feel free to use the default /var/www/html directory. Since I&rsquo;m using a VM, I also like to use hostnames, and use it as virtual host in Apache. Be sure to pick your timezone as well.</p>
+<p>I generally put web related things into /httpd directory. Feel free to use the default /var/www/html directory. Since I&rsquo;m using a VM, I also like to use specific hostnames, and use it as virtual host in Apache. For consistency, be sure to setup your timezone, both on system and PHP</p>
 
 <p>```bash
 mkdir /httpd</p>
@@ -77,11 +77,14 @@ EOL</p>
 ln -s /usr/share/zoneinfo/America/New_York /etc/localtime</p>
 
 <p>service httpd start
-service mysql start
-mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql >> /dev/null 2>&amp;1
+service mysql start</p>
+
+<h1>below is not required but nice to have. Ignore warnings</h1>
+
+<p>mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql >> /dev/null 2>&amp;1
 ```</p>
 
-<p>Setup Cacti MySQL database and user. Cacti source uses cactiuser/cactiuser as username and password.</p>
+<p>Setup Cacti MySQL database and user. Cacti source uses cactiuser/cactiuser as username and password by default.</p>
 
 <p><code>bash
 mysql -e 'CREATE DATABASE cacti'
@@ -111,6 +114,8 @@ cat &lt;&lt; EOL &gt;&gt; /var/spool/cron/cacti
 * * * * * /usr/bin/php /httpd/cacti/poller.php &gt; /dev/null 2&gt;&amp;1
 EOL
 </code></p>
+
+<p><em>&hellip;to be contunued with monitoring templates&hellip;</em></p>
 ]]></content>
   </entry>
   
